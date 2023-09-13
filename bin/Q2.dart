@@ -101,7 +101,7 @@ void filterTasksByTitle(List<Map<String, dynamic>> tasks) {
   String title = stdin.readLineSync()!;
   final filteredTasks = tasks
       .where(
-          (task) => task['title'].toLowerCase().contains(title.toLowerCase()))
+          (task) => task['title'].contains(title.toLowerCase()))
       .toList();
   if (filteredTasks.isEmpty) {
     print('No tasks were found with the specified title');
