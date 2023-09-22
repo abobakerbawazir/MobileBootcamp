@@ -5,7 +5,7 @@ import 'Category.dart';
 import 'Searchgenericclass.dart';
 import 'suppliers.dart';
 
-class Medicine implements Searchgeneric{
+class Medicine implements Searchgeneric {
   late int id;
   late String name, expireDate;
   late double unitPrice;
@@ -36,7 +36,7 @@ class Medicine implements Searchgeneric{
       print(element.suppliers.name);
     });
   }
-  
+
   @override
   search(List<Medicine> list, keyword, {String? operatorT}) {
     if (operatorT == ">" && keyword >= 4000) {
@@ -74,5 +74,15 @@ class Medicine implements Searchgeneric{
         }
       });
     }
+    // Get the first 3 medicines with expire date after 2000
+    if (operatorT == "medicinesAfter2000") {
+      list.forEach((element) {
+       if(element.expireDate.endsWith("2000")) {
+        print("${element.name} : ${element.expireDate} ");
+       }
+       });
+       }
+      
+    
   }
 }

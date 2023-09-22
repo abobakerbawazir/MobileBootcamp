@@ -3,6 +3,7 @@ import 'dart:math';
 import 'Medicine.dart';
 
 class Invoice_details {
+  late String _name;
   late int _quantity;
   late double _price;
   late double _total;
@@ -28,11 +29,19 @@ class Invoice_details {
   void set Quantity(int quantity) {
     this._quantity = quantity;
   }
+
   double get Toatl {
     return this._total;
   }
 
   void set Total(double total) {
-    this._total = Quantity*Price;
+    this._total = Quantity * Price;
+  }
+  String get Name {
+    return this._name;
+  }
+
+  void set Name(String name) {
+    this._name = name;
   }
 }

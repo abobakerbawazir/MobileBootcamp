@@ -1,9 +1,11 @@
 import 'dart:math';
 
 import 'Medicine.dart';
+import 'client.dart';
 import 'invoiceofdeatiles.dart';
 
 class Invoise {
+  List<Client>y=[];
   // late double totalamont;
   late double omunt;
   List<Invoice_details> x = [];
@@ -47,4 +49,18 @@ class Invoise {
       if(c>=4000){}
     });
   }
+  ////
+  ///
+  // Search for invoices for client 1 and with Medicine 1 name
+  invoicesforclient1andwithMedicine1name(List<Invoise> ii){
+    ii.where((element) => element.x.any((element) => 
+    element.Name=="Medicine 1"));
+    print('Invoices for Client 1 with Medicine 1:');
+    for(var i in y){
+      i.displayinformation();
+      print("");
+    }
+  }
+  
+ 
 }
