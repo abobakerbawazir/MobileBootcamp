@@ -8,13 +8,13 @@ void main(List<String> args) {
   Birthday birth3 = Birthday(name: "Abobaker", birthday: "2017/1/31");
   Birthday birth4 = Birthday(name: "Saeed", birthday: "1992/4/20");
   Birthday birth5 = Birthday(name: "Salem", birthday: "1950/2/11");
-  birthday_system systems = birthday_system();
+  Birthday_system birthday_system = Birthday_system();
 
-  systems.addbirthday(birth1);
-  systems.addbirthday(birth2);
-  systems.addbirthday(birth3);
-  systems.addbirthday(birth4);
-  systems.addbirthday(birth5);
+  birthday_system.addbirthday(birth1);
+  birthday_system.addbirthday(birth2);
+  birthday_system.addbirthday(birth3);
+  birthday_system.addbirthday(birth4);
+  birthday_system.addbirthday(birth5);
   
-  systems.printInfoallbirthdaysandNmaes();
+  birthday_system.printInfoallbirthdaysandNmaes();
 }

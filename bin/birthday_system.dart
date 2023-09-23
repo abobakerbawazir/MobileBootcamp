@@ -1,6 +1,6 @@
 import 'Birthday.dart';
 
-class birthday_system {
+class Birthday_system {
   List<Birthday> listofBirthdays = [];
   
 
