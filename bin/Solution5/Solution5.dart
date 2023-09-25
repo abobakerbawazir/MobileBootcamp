@@ -2,7 +2,7 @@
 2- 2- We applied principle Open_Closed method has ploygramipsm
 */
 
-class Email {
+abstract class Email {
   static bool ValidateEmail(String email) {
     return email.contains("@");
   }
@@ -13,7 +13,7 @@ class Email {
   }
 }
 
-class Password {
+abstract class Password {
   void hashPassword() {
     //hashing implementation
   }
@@ -33,8 +33,7 @@ class UserService {
 
 void main(List<String> args) {
   try {
-    Email e = Email();
-    Password p = Password();
+    
     UserService u = UserService();
     u.Register("asddf", "dfsfg");
   } catch (e) {
