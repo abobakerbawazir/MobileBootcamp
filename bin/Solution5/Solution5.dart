@@ -7,17 +7,17 @@ abstract class Email {
     return email.contains("@");
   }
 
-  bool SendEmail(String? message) {
+  static bool SendEmail(String? message) {
     //_smtpClient.Send(message);
     return true;
   }
 }
 
 abstract class Password {
-  void hashPassword() {
+  static void hashPassword() {
     //hashing implementation
   }
-  void savePassword() {
+  static void savePassword() {
     //save to the db
   }
 }
