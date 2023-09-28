@@ -1,22 +1,29 @@
+import '../Grade.dart';
 import '../Model/CourseModel.dart';
 import '../Model/StudentModel.dart';
 
 class CourseController extends StudentModel {
-  late List<CourseModel> _courses = [];
+  late Grade grade;
+  late List<CourseModel> Courses = [];
   CourseModel courseModel = CourseModel();
 
-  List<CourseModel> get Courses => this._courses;
+  
 
   addNewCourse({required name, required marks}) {
-    
-    if (marks < 50) {
-      courseModel.grade = "F";
-      courseModel.name = name;
+    courseModel.name = name;
     courseModel.marks = marks;
-    
-    Courses.add(courseModel);
-      
+    if (marks >= 90) {
+      courseModel.grade= Grade.A;
+    } else if (marks >= 80) {
+      courseModel.grade= Grade.B;
+    } else if (marks >= 65) {
+      courseModel.grade= Grade.C;
+    } else if (marks >= 50) {
+      courseModel.grade= Grade.D;
+    } else {
+      courseModel.grade= Grade.F;
     }
-    
+
+    Courses.add(courseModel);
   }
 }

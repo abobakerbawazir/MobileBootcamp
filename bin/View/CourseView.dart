@@ -11,7 +11,7 @@ class CourseView {
   }
 
   newCourse({required String name, required int marks}) {
-    print("Course addes sucessful");
+    
     courseController.addNewCourse(name: name, marks: marks);
 
     //print(showStudents());
