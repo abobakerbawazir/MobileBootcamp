@@ -9,8 +9,8 @@ class CourseController extends StudentModel {
 
   addNewCourse({required name, required marks}) {
     
-    if (marks == 20) {
-      courseModel.grade = "A";
+    if (marks < 50) {
+      courseModel.grade = "F";
       courseModel.name = name;
     courseModel.marks = marks;
     
