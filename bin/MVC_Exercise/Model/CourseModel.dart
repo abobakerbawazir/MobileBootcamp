@@ -2,16 +2,21 @@ import '../Grade.dart';
 
 class CourseModel {
   late String name;
-  late DateTime no_of_hours;
+  late int no_of_hours;
   late double fees;
   late Grade grade;
   late int marks;
+  late List<String> teachers;
+  late List<String> students;
   CourseModel() {
-    this.no_of_hours = DateTime.now();
+    teachers = [];
+    students = [];
+
     //   CourseModel() {
     //  // grade = calculateGrade();
     // }
   }
+  
   //   Grade calculateGrade() {
   //   if (marks >= 90) {
   //     return Grade.A;
