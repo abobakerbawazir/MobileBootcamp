@@ -1,6 +1,7 @@
 
 
 import 'package:day_26/Exercise1.dart';
+import 'package:day_26/Exercise3.dart';
 import 'package:flutter/material.dart';
 
 import 'Exercise2.dart';
@@ -12,6 +13,6 @@ class MyHomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(home: Exercise1(),);
+    return MaterialApp(home: Exercise3(),);
   }
 }
