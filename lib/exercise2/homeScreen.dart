@@ -94,20 +94,20 @@ class StudentViewWith_3_tap extends StatefulWidget {
 
 class _StudentViewState extends State<StudentViewWith_3_tap> {
   final ProductController controller = ProductController();
-  List<ProductModel> selectedStudents = [];
+  List<ProductModel> selectedproudects = [];
 
-  void _onStudentTap(ProductModel student) {
-    if (selectedStudents.contains(student)) {
-      selectedStudents.remove(student);
+  void _onStudentTap(ProductModel proudect) {
+    if (selectedStudents.contains(proudect)) {
+      selectedStudents.remove(proudect);
     } else {
-      selectedStudents.add(student);
+      selectedStudents.add(proudect);
     }
 
     if (selectedStudents.length == 3) {
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => SelectedStudentsPage(students: selectedStudents),
+          builder: (context) => SelectedStudentsPage(students: selectedproudect),
         ),
       );
     }

@@ -10,7 +10,7 @@ class SelectedStudentsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Selected Students'),
+        title: Text('Selected proudects'),
       ),
       body: ListView.builder(
         itemCount: proudects.length,
