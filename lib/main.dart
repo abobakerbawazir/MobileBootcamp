@@ -6,6 +6,10 @@ import 'package:flutter/services.dart';
 import 'CorurseModel.dart';
 import 'CouresController.dart';
 import 'CourseMangement.dart';
+import 'CoursePage.dart';
+//defiend Object global of project
+
+CouresController couresController = CouresController();
 
 void main() {
   runApp(const MyApp());

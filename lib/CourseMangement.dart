@@ -14,7 +14,44 @@ class CourseMangement extends StatefulWidget {
 class _CourseMangementState extends State<CourseMangement> {
   //List<Course> courseListx = [];
 
-  CouresController couresController = CouresController();
+  // CouresController couresController = CouresController();
+  TextEditingController nameController = TextEditingController();
+  TextEditingController hoursController = TextEditingController();
+  int selectedIndex = -1;
+
+  deleteCourseAtIndexView(int index) {
+    setState(() {
+      couresController.deleteCourseAtIndex(index);
+    });
+  }
+
+  void editCourseAtIndex(int index) {
+    setState(() {
+      selectedIndex = index;
+      //defiend varaible Todo=todos[index]
+      Course course = couresController.courseList[index];
+      nameController.text = course.name;
+      hoursController.text = course.hours.toString();
+    });
+  }
+
+  void updateCourse() {
+    if (selectedIndex != -1) {
+      String newName = nameController.text;
+      int newHours = int.parse(hoursController.text);
+
+      setState(() {
+        Course course = couresController.courseList[selectedIndex];
+        course.name = newName;
+        course.hours = newHours;
+
+        nameController.clear();
+        hoursController.clear();
+        selectedIndex = -1;
+      });
+    }
+  }
+
   bool isdark = false;
   @override
   void initState() {
@@ -24,11 +61,11 @@ class _CourseMangementState extends State<CourseMangement> {
 
   @override
   Widget build(BuildContext context) {
-    setState(() {
-      //courseListx.add(couresController.courseList.last);
-      couresController.courseList;
-    });
-    couresController.courseList;
+    // setState(() {
+    //   //courseListx.add(couresController.courseList.last);
+    //   couresController.courseList;
+    // });
+    //couresController.courseList;
     return Scaffold(
       appBar: AppBar(
         actions: [
@@ -78,9 +115,51 @@ class _CourseMangementState extends State<CourseMangement> {
                             hours: couresController.courseList[index].hours);
                         return Column(
                           children: [
-                            Text(couresController.courseList[index].name),
-                            Text(couresController.courseList[index].hours
-                                .toString())
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Column(
+                                  children: [
+                                    Text(couresController
+                                        .courseList[index].name),
+                                    Text(couresController
+                                        .courseList[index].hours
+                                        .toString()),
+                                  ],
+                                ),
+                                IconButton(
+                                  icon: Icon(Icons.delete),
+                                  onPressed: () {
+                                    deleteCourseAtIndexView(index);
+                                  },
+                                ),
+                                IconButton(
+                                  icon: Icon(Icons.edit),
+                                  onPressed: () {
+                                    editCourseAtIndex(index);
+                                    Navigator.pop(context);
+
+                                    // Navigator.push(context, MaterialPageRoute(
+                                    //   builder: (context) {
+                                    //     return CoursePage();
+                                    //   },
+                                    // ));
+                                  },
+                                ),
+                                IconButton(
+                                  icon: Icon(Icons.check),
+                                  onPressed: () {
+                                    updateCourse();
+                                    Navigator.pop(context);
+                                    // Navigator.push(context, MaterialPageRoute(
+                                    //   builder: (context) {
+                                    //     return CoursePage();
+                                    //   },
+                                    // ));
+                                  },
+                                )
+                              ],
+                            )
                           ],
                         );
                       })))
