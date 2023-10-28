@@ -1,26 +1,24 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:video/HomeWok_Video/core/components/HomeScreen_Compontents/HomePage_Counainer_Button.dart';
 import 'package:video/HomeWok_Video/core/components/HomeScreen_Compontents/ListViewBiulderHomePage.dart';
 import 'package:video/HomeWok_Video/core/components/HomeScreen_Compontents/ListviewBuilderHomePage_180_8_2.dart';
 import 'package:video/HomeWok_Video/core/components/HomeScreen_Compontents/ListviewBuilderHomePage_button.dart';
 import 'package:video/HomeWok_Video/features/Veiw/Drawer/My_drawer.dart';
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+class HomeNav extends StatefulWidget {
+  const HomeNav({super.key});
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  State<HomeNav> createState() => _HomeNavState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _HomeNavState extends State<HomeNav> {
   
   @override
   Widget build(BuildContext context) {
-    Future.delayed(Duration(seconds: 10),(){
-  Navigator.pushReplacementNamed(context, "/page9_Splash");
-});
+//     Future.delayed(Duration(seconds: 10),(){
+//   Navigator.pushReplacementNamed(context, "/page9_Splash");
+// });
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color.fromARGB(255, 49, 48, 48),

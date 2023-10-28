@@ -4,6 +4,7 @@ import 'package:video/HomeWok_Video/features/Veiw/Costom_Plan_page.dart';
 import 'package:video/HomeWok_Video/features/Veiw/CreateAnAccount.dart';
 import 'package:video/HomeWok_Video/features/Veiw/EditProfile.dart';
 import 'package:video/HomeWok_Video/features/Veiw/HomeScreen.dart';
+import 'package:video/HomeWok_Video/features/Veiw/Home_nav.dart';
 import 'package:video/HomeWok_Video/features/Veiw/List_is_Empty_16.dart';
 import 'package:video/HomeWok_Video/features/Veiw/Login_7.dart';
 import 'package:video/HomeWok_Video/features/Veiw/NotificationPage.dart';
@@ -24,7 +25,6 @@ import 'package:video/HomeWok_Video/features/Veiw/bottomNavigationBar/BottomNav.
 class RouteManager {
   static Route<dynamic>? generateRoute(RouteSettings settings) {
     switch (settings.name) {
-      
       case '/':
         {
           return MaterialPageRoute(
@@ -33,12 +33,24 @@ class RouteManager {
             },
           );
         }
-        case '/aaa':
+      case '/aaa':
         {
           return MaterialPageRoute(
             builder: (context) {
-             final List<Video> x=ModalRoute.of(context)!.settings.arguments as List<Video>;
-              return ListWatch_Video(x: x,);
+              final List<Video> x =
+                  ModalRoute.of(context)!.settings.arguments as List<Video>;
+              return ListWatch_Video(
+                x: x,
+              );
+            },
+          );
+        }
+      case '/homeNav':
+        {
+          return MaterialPageRoute(
+            builder: (context) {
+              //final List<Video> x=ModalRoute.of(context)!.settings.arguments as List<Video>;
+              return HomeNav();
             },
           );
         }
@@ -48,7 +60,7 @@ class RouteManager {
             return HomeScreen();
           });
         }
-      
+
       case '/bottomNav':
         {
           return MaterialPageRoute(
@@ -57,8 +69,8 @@ class RouteManager {
             },
           );
         }
-        
-        case '/watchListPage':
+
+      case '/watchListPage':
         {
           return MaterialPageRoute(
             builder: (context) {
@@ -66,8 +78,8 @@ class RouteManager {
             },
           );
         }
-        
-        case '/notification_page':
+
+      case '/notification_page':
         {
           return MaterialPageRoute(
             builder: (context) {
@@ -99,7 +111,7 @@ class RouteManager {
             },
           );
         }
-      
+
       case '/costom_Plan_Page':
         {
           return MaterialPageRoute(
@@ -108,8 +120,8 @@ class RouteManager {
             },
           );
         }
-        
-        case '/payment_Method_13':
+
+      case '/payment_Method_13':
         {
           return MaterialPageRoute(
             builder: (context) {
@@ -125,7 +137,7 @@ class RouteManager {
             },
           );
         }
-        case '/page9_Splash':
+      case '/page9_Splash':
         {
           return MaterialPageRoute(
             builder: (context) {
@@ -149,8 +161,8 @@ class RouteManager {
             },
           );
         }
-        
-        case '/createAnAccount':
+
+      case '/createAnAccount':
         {
           return MaterialPageRoute(
             builder: (context) {
@@ -158,7 +170,7 @@ class RouteManager {
             },
           );
         }
-        case '/payment_15_page':
+      case '/payment_15_page':
         {
           return MaterialPageRoute(
             builder: (context) {
@@ -166,18 +178,18 @@ class RouteManager {
             },
           );
         }
-        
 
-        case '/VideoPlayerScreenPage':
+      case '/VideoPlayerScreenPage':
         {
           return MaterialPageRoute(
             builder: (context) {
-              final String video_path=ModalRoute.of(context)!.settings.arguments as String;
+              final String video_path =
+                  ModalRoute.of(context)!.settings.arguments as String;
               return VideoPlayerScreenPage(video_path);
             },
           );
         }
-        case '/verificationCodePage':
+      case '/verificationCodePage':
         {
           return MaterialPageRoute(
             builder: (context) {

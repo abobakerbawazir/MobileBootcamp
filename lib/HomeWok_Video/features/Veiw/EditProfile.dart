@@ -24,21 +24,23 @@ class _EditProfileState extends State<EditProfile> {
         child: Column(
           children: [
             Stack(
-              children: [Container(decoration: BoxDecoration(
-                        color: Colors.black,
-                        //borderRadius: BorderRadius.circular(500)
-                         ),
+              children: [
+                Container(
+                    decoration: BoxDecoration(
+                      color: Colors.black,
+                      //borderRadius: BorderRadius.circular(500)
+                    ),
                     //color: Colors.black,
                     padding: EdgeInsets.all(20),
                     height: MediaQuery.of(context).size.height / 4,
                     width: MediaQuery.of(context).size.width,
-                    child: ClipOval(
-                        child: Image.asset(
-                      "assets/imagesvideo/movies4.jpg",
-                      width: 60,
-                      height: 60,
-                    ))),
-                Positioned(top: 20,right: 120,
+                    child: const CircleAvatar(
+                      backgroundImage: AssetImage("assets/images/1.jpg"),
+                      minRadius: 15,
+                    )),
+                Positioned(
+                  top: 20,
+                  right: 120,
                   child: Container(
                     width: 30,
                     height: 30,
@@ -47,13 +49,14 @@ class _EditProfileState extends State<EditProfile> {
                         borderRadius: BorderRadius.circular(15)),
                   ),
                 ),
-                Positioned(top: 22,right: 123,
+                Positioned(
+                  top: 22,
+                  right: 123,
                   child: Icon(
                     Icons.camera_alt_rounded,
                     color: Colors.black,
                   ),
                 ),
-                
               ],
             ),
             Container(
@@ -99,7 +102,9 @@ class _EditProfileState extends State<EditProfile> {
                 width: MediaQuery.of(context).size.width / 1.2,
                 backgroundColor: Color.fromARGB(255, 107, 104, 104),
                 foregroundColor: Color.fromARGB(255, 255, 230, 0),
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pushNamed(context, '/homeNav');
+                },
                 text: "SAVE CHANGES"),
           ],
         ),

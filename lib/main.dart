@@ -5,6 +5,7 @@ import 'package:video/HomeWok_Video/features/Veiw/CreateAnAccount.dart';
 import 'package:video/HomeWok_Video/features/Veiw/EditProfile.dart';
 import 'package:video/HomeWok_Video/features/Veiw/HomeScreen.dart';
 import 'package:video/HomeWok_Video/features/Veiw/Login_7.dart';
+import 'package:video/HomeWok_Video/features/Veiw/NotificationPage.dart';
 import 'package:video/HomeWok_Video/features/Veiw/Page9_splash.dart';
 import 'package:video/HomeWok_Video/features/Veiw/Payment/Payment_15_page.dart';
 import 'package:video/HomeWok_Video/features/Veiw/PaymentMethod14.dart';
@@ -24,7 +25,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: BottomNav(),
+      //home: Notification_page(),
       theme: ThemeData(
           brightness: Brightness.dark,
           appBarTheme:

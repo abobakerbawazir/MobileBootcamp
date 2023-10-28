@@ -184,12 +184,13 @@ class _PaymentMethod14State extends State<PaymentMethod14> {
                             backgroundColor: Color.fromARGB(255, 107, 104, 104),
                             foregroundColor: Colors.yellow,
                             onPressed: () {
-                              Navigator.push(context, MaterialPageRoute(
-                                builder: (context) {
-                                  return VideoPlayerScreenPage(
-                                      "assets/videos/1.mp4");
-                                },
-                              ));
+                              Navigator.pushNamed(context, '/payment_15_page');
+                              // Navigator.push(context, MaterialPageRoute(
+                              //   builder: (context) {
+                              //     return VideoPlayerScreenPage(
+                              //         "assets/videos/1.mp4");
+                              //   },
+                              // ));
                             },
                             text: "PAY NOW")
                       ],

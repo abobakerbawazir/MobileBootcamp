@@ -183,7 +183,9 @@ class _Payment_15_pageState extends State<Payment_15_page> {
             ),
             Stack(
               children: [
-                Elevated_button_sign_in(left: 10,right: 10,
+                Elevated_button_sign_in(
+                    left: 10,
+                    right: 10,
                     width: MediaQuery.of(context).size.width,
                     height: 70,
                     backgroundColor: Color.fromARGB(255, 121, 116, 116),
@@ -209,11 +211,16 @@ class _Payment_15_pageState extends State<Payment_15_page> {
                 ],
               ),
             ),
-            Elevated_button_sign_in(width: MediaQuery.of(context).size.width,
-                    height: 70,left: 10,right: 10,
+            Elevated_button_sign_in(
+                width: MediaQuery.of(context).size.width,
+                height: 70,
+                left: 10,
+                right: 10,
                 backgroundColor: Color.fromARGB(255, 121, 116, 116),
                 foregroundColor: Colors.yellow,
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pushNamed(context, '/bottomNav');
+                },
                 text: "PAY&CONFIRM")
           ],
         ),

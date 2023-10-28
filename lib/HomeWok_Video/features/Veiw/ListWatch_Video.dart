@@ -4,6 +4,7 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:video/HomeWok_Video/features/Controller/VideoController/VideoController.dart';
 import 'package:video/HomeWok_Video/features/Model/VideoModel/Video.dart';
+import 'package:video/HomeWok_Video/features/Veiw/List_is_Empty_16.dart';
 
 class ListWatch_Video extends StatefulWidget {
   List<Video> x;
@@ -37,7 +38,7 @@ class _ListWatch_VideoState extends State<ListWatch_Video> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return widget.x.isEmpty?ListIsEmpty(): Scaffold(
       appBar: AppBar(
         title: Text("WatchList"),
       ),
@@ -62,7 +63,7 @@ class _ListWatch_VideoState extends State<ListWatch_Video> {
                 ],
               ),
               SizedBox(
-                height: MediaQuery.of(context).size.height,
+                height: MediaQuery.of(context).size.height/1.3,
                 child: ListView.builder(
                   itemCount: widget.x.length,
                   itemBuilder: (context, index) {
@@ -86,13 +87,19 @@ class _ListWatch_VideoState extends State<ListWatch_Video> {
                                   //   ),
 
                                   // ),
-                                  Image.asset(
-                                    widget.x[index].image_path,
-                                    // height: MediaQuery.of(context).size.height / 6,
-                                  ),
+                                  Container(
+                        width: 150,
+                        height: 100,
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                              image: AssetImage(widget.x[index].image_path),
+                              fit: BoxFit.cover),
+                          color: Colors.red,
+                          borderRadius: BorderRadius.circular(8),
+                        ),),
                                   Positioned(
-                                      left: 40,
-                                      top: 60,
+                                      left: 65,
+                                      top: 35,
                                       child: Icon(
                                         Icons.play_arrow,
                                         color: Colors.yellow,
@@ -100,7 +107,7 @@ class _ListWatch_VideoState extends State<ListWatch_Video> {
                                 ],
                               ),
                               Container(
-                                padding: EdgeInsets.only(left: 10),
+                                padding: EdgeInsets.only(left: 10,top: 20),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
@@ -134,7 +141,7 @@ class _ListWatch_VideoState extends State<ListWatch_Video> {
                                 ),
                               ),
                               SizedBox(
-                                width: 140,
+                                width: 100,
                               ),
                               Expanded(
                                 child: IconButton(
@@ -169,5 +176,6 @@ class _ListWatch_VideoState extends State<ListWatch_Video> {
         ),
       ),
     );
+  
   }
 }

@@ -40,7 +40,7 @@ class _Payment_Method_13_CompontsState
         return Column(crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             ListTile(
-              leading: Radio<String>(
+              leading: Radio<String>(activeColor: Colors.yellow,
                 value: size,
                 groupValue: selectedValue,
                 onChanged: (value) {
@@ -82,7 +82,7 @@ class _Payment_Method_13_CompontsState
             ),
             Container(
               height: 1,
-              color: Colors.white,
+              color: Color(0xff626366),
             )
           ],
         );

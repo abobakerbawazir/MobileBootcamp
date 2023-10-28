@@ -89,7 +89,7 @@ class _LoginPageState extends State<LoginPage> {
               onPressed: () {
                 Navigator.pushNamed(context, "/createAnAccount");
               },
-            ),Container(height: 30,child: Costom_Plan_Components(listRadio: ["df","sdfg","dfgthyu"]),)
+            ),
           ],
         ),
       )),

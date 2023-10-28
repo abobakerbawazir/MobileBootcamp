@@ -87,9 +87,9 @@ class VideoController {
   ];
   List<Map<String, dynamic>> icon_name_Map = [
     {"icon": Icons.movie, "name": "MOVIE"},
-    {"icon": Icons.add, "name": "SERIES"},
+    {"icon": Icons.search_rounded, "name": "SERIES"},
     {"icon": Icons.content_copy, "name": "kIDS CONTENT"},
-    {"icon": Icons.abc, "name": "MOVIE"},
+    {"icon": Icons.access_time, "name": "MOVIE"},
     {"icon": Icons.remove, "name": "ACTION"},
     {"icon": Icons.outbond, "name": "DRAMA"},
   ];
