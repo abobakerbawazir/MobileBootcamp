@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 class ListIsEmpty extends StatefulWidget {
   const ListIsEmpty({super.key});
@@ -12,15 +11,15 @@ class _ListIsEmptyState extends State<ListIsEmpty> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text(
-            "PAYMENT MOTHED",
-            style: TextStyle(color: Colors.white),
-          ),
-          backgroundColor: Color.fromARGB(255, 49, 48, 48),
-        ),
+        // appBar: AppBar(
+        //   title: const Text(
+        //     "PAYMENT MOTHED",
+        //     style: TextStyle(color: Colors.white),
+        //   ),
+        //   backgroundColor: const Color.fromARGB(255, 49, 48, 48),
+        // ),
         body: Container(
-          color: Color.fromARGB(255, 49, 48, 48),
+          color: const Color.fromARGB(255, 49, 48, 48),
           child: Center(
             child: Column(
               children: [
@@ -31,12 +30,12 @@ class _ListIsEmptyState extends State<ListIsEmpty> {
                 Container(
                   height: 200,
                 ),
-                Icon(
+                const Icon(
                   Icons.list,
                   size: 150,
                   color: Colors.yellow,
                 ),
-                Text(
+                const Text(
                   "YOUR LIST IS EMPTY!",
                   style: TextStyle(color: Colors.white,fontSize: 25,fontWeight: FontWeight.bold),
                 ),
@@ -44,7 +43,7 @@ class _ListIsEmptyState extends State<ListIsEmpty> {
              
                   height: 8,
                 ),
-                Text(
+                const Text(
                   "Contrary to popular belief, Lorem \nI psum is not simply rand",
                   style: TextStyle(color: Colors.white,fontSize: 15,),
                 ),
