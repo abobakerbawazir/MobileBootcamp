@@ -33,147 +33,211 @@ class _DepartmentHomePageState extends State<DepartmentHomePage> {
         child: Column(
           children: [
             SizedBox(
-              width: MediaQuery.of(context).size.width / 1.3,
-              child: TextFormField(
-                  controller: nameDepTxt,
-                  decoration: InputDecoration(
-                    hintText: 'Department Name',
-                  )),
+              height: 10,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                IconButton(onPressed: () async {
+                 List<Department> x=   await DBHelper.database.departmentDao
+              .searchByName(nameDepTxt.text);
+          print(x);
+          setState(() {});
+                }, icon: Icon(Icons.search)),
+                SizedBox(
+                  width: MediaQuery.of(context).size.width / 1.3,
+                  child: TextFormField(
+                      controller: nameDepTxt,
+                      decoration: InputDecoration(
+                        hintText: 'Department Name',
+                      )),
+                ),
+              ],
             ),
             SizedBox(
               height: 30,
             ),
             Center(
               child: SizedBox(
-                height: MediaQuery.of(context).size.height / 2,
+                height: MediaQuery.of(context).size.height / 1.5,
                 width: MediaQuery.of(context).size.width / 1.2,
-                child: SizedBox(
-                  height: MediaQuery.of(context).size.height / 2,
-                  child: FutureBuilder(
-                    future: DBHelper.database.departmentDao.getAllDepartments(),
-                    builder:
-                        (context, AsyncSnapshot<List<Department>> snapshot) {
-                      if (snapshot.hasData) {
-                        return snapshot.data!.isEmpty
-                            ? Center(child: Text("Empty"))
-                            : Column(
-                                children: [
-                                  SizedBox(
-                                    height:
-                                        MediaQuery.of(context).size.height / 4,
-                                    child: Row(
-                                      children: [],
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height:
-                                        MediaQuery.of(context).size.height / 4,
-                                    child: ListView.builder(
-                                      itemCount: snapshot.data!.length,
-                                      itemBuilder: (context, index) {
-                                        return Card(
-                                          margin: EdgeInsets.all(5),
-                                          child: Row(
-                                            children: [
-                                              Expanded(
-                                                child: IconButton(
-                                                    onPressed: () async {
-                                                      nameDepUpdateTxt.text =
-                                                          snapshot.data![index]
-                                                              .name!;
+                child: FutureBuilder(
+                  future: DBHelper.database.departmentDao.getAllDepartments(),
+                  builder: (context, AsyncSnapshot<List<Department>> snapshot) {
+                    if (snapshot.hasData) {
+                      return snapshot.data!.isEmpty
+                          ? Center(child: Text("Empty"))
+                          : Column(
+                              children: [
+                                SizedBox(
+                                  height:
+                                      MediaQuery.of(context).size.height / 1.5,
+                                  child: ListView.builder(
+                                    itemCount: snapshot.data!.length,
+                                    itemBuilder: (context, index) {
+                                      return Card(
+                                        color: index.isEven
+                                            ? Colors.amber
+                                            : Colors.pink,
+                                        margin: EdgeInsets.all(5),
+                                        child: Row(
+                                          children: [
+                                            Expanded(
+                                              child: IconButton(
+                                                  onPressed: () async {
+                                                    nameDepUpdateTxt.text =
+                                                        snapshot
+                                                            .data![index].name!;
 
-                                                      bool? v =
-                                                          await showModalBottomSheet(
-                                                        context: context,
-                                                        builder: (context) {
-                                                          return SizedBox(
-                                                            child: Container(
-                                                                padding:
-                                                                    EdgeInsets
-                                                                        .all(
-                                                                            15),
-                                                                child: Column(
-                                                                  children: [
-                                                                    TextFormField(
-                                                                      controller:
-                                                                          nameDepUpdateTxt,
-                                                                    ),
-                                                                    ElevatedButton(
-                                                                        style: ElevatedButton.styleFrom(
-                                                                            backgroundColor: Colors
-                                                                                .purple),
-                                                                        onPressed:
-                                                                            () async {
-                                                                          // Department
-                                                                          //     department =
-                                                                          //     Department(
-                                                                          //         name:
-                                                                          //             nameDepTxt.text);
+                                                    bool? v =
+                                                        await showModalBottomSheet(
+                                                      context: context,
+                                                      builder: (context) {
+                                                        return SizedBox(
+                                                          child: Container(
+                                                              padding:
+                                                                  EdgeInsets
+                                                                      .all(15),
+                                                              child: Column(
+                                                                children: [
+                                                                  TextFormField(
+                                                                    controller:
+                                                                        nameDepUpdateTxt,
+                                                                  ),
+                                                                  ElevatedButton(
+                                                                      style: ElevatedButton.styleFrom(
+                                                                          backgroundColor: Colors
+                                                                              .purple),
+                                                                      onPressed:
+                                                                          () async {
+                                                                        // Department
+                                                                        //     department =
+                                                                        //     Department(
+                                                                        //         name:
+                                                                        //             nameDepTxt.text);
 
-                                                                          int? x = await DBHelper
-                                                                              .database
-                                                                              .departmentDao
-                                                                              .updatesDepartment(Department(id: snapshot.data![index].id, name: nameDepUpdateTxt.text));
-                                                                          print(
-                                                                              x);
+                                                                        int? x = await DBHelper
+                                                                            .database
+                                                                            .departmentDao
+                                                                            .updatesDepartment(Department(
+                                                                                id: snapshot.data![index].id,
+                                                                                name: nameDepUpdateTxt.text));
+                                                                        print(
+                                                                            x);
 
-                                                                          Navigator.pop(
-                                                                              context,
-                                                                              true);
-                                                                        },
-                                                                        child: Text(
-                                                                            "Create New"))
-                                                                  ],
+                                                                        Navigator.pop(
+                                                                            context,
+                                                                            true);
+                                                                      },
+                                                                      child: Text(
+                                                                          "Create New"))
+                                                                ],
+                                                              )),
+                                                        );
+                                                      },
+                                                    );
+
+                                                    setState(() {});
+                                                    if (v != null && v) {
+                                                      setState(() {});
+                                                    }
+                                                    print(v);
+                                                  },
+                                                  icon: Icon(
+                                                    Icons.edit,
+                                                    color: Color.fromARGB(
+                                                        255, 13, 121, 16),
+                                                  )),
+                                            ),
+                                            Expanded(
+                                              child: Center(
+                                                  child: Text(snapshot
+                                                      .data![index].name!)),
+                                            ),
+                                            Expanded(
+                                              child: IconButton(
+                                                  onPressed: () async {
+                                                    showDialog(
+                                                      context: context,
+                                                      builder: (context) {
+                                                        return AlertDialog(
+                                                          content: Card(
+                                                            color: Colors.amber,
+                                                            child: Text(
+                                                              "Do you remove ${snapshot.data![index].name} Department",
+                                                              style: TextStyle(
+                                                                  fontSize: 15,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold),
+                                                            ),
+                                                          ),
+                                                          actions: [
+                                                            ElevatedButton(
+                                                                style: ElevatedButton
+                                                                    .styleFrom(
+                                                                        backgroundColor:
+                                                                            Colors
+                                                                                .green),
+                                                                onPressed:
+                                                                    () async {
+                                                                  int? x = await DBHelper
+                                                                      .database
+                                                                      .departmentDao
+                                                                      .deleteDepartment(snapshot
+                                                                          .data![
+                                                                              index]
+                                                                          .id!);
+                                                                  print(x);
+                                                                  setState(
+                                                                      () {});
+                                                                  Navigator.pop(
+                                                                      context);
+                                                                },
+                                                                child: Center(
+                                                                  child: Text(
+                                                                      'Yes'),
                                                                 )),
-                                                          );
-                                                        },
-                                                      );
-
-                                                      setState(() {});
-                                                      if (v != null && v) {
-                                                        setState(() {});
-                                                      }
-                                                      print(v);
-                                                    },
-                                                    icon: Icon(
-                                                      Icons.edit,
-                                                      color: Color.fromARGB(
-                                                          255, 13, 121, 16),
-                                                    )),
-                                              ),
-                                              Expanded(
-                                                child: Center(
-                                                    child: Text(snapshot
-                                                        .data![index].name!)),
-                                              ),
-                                              Expanded(
-                                                child: IconButton(
-                                                    onPressed: () async {
-                                                      int? x = await DBHelper
-                                                          .database
-                                                          .departmentDao
-                                                          .deleteDepartment(
-                                                              snapshot
-                                                                  .data![index]
-                                                                  .id!);
-                                                      print(x);
-                                                      setState(() {});
-                                                    },
-                                                    icon: Icon(Icons.delete)),
-                                              ),
-                                            ],
-                                          ),
-                                        );
-                                      },
-                                    ),
+                                                            ElevatedButton(
+                                                                style: ElevatedButton
+                                                                    .styleFrom(
+                                                                        backgroundColor:
+                                                                            Colors
+                                                                                .red),
+                                                                onPressed: () {
+                                                                  Navigator.pop(
+                                                                      context);
+                                                                },
+                                                                child: Center(
+                                                                    child: Text(
+                                                                        'No')))
+                                                          ],
+                                                        );
+                                                      },
+                                                    );
+                                                    // int? x = await DBHelper
+                                                    //     .database.departmentDao
+                                                    //     .deleteDepartment(
+                                                    //         snapshot
+                                                    //             .data![index]
+                                                    //             .id!);
+                                                    // print(x);
+                                                    // setState(() {});
+                                                  },
+                                                  icon: Icon(Icons.delete)),
+                                            ),
+                                          ],
+                                        ),
+                                      );
+                                    },
                                   ),
-                                ],
-                              );
-                      } else {
-                        return Text("data is no");
-                      }
-                    },
-                  ),
+                                ),
+                              ],
+                            );
+                    } else {
+                      return Text("data is no");
+                    }
+                  },
                 ),
               ),
             )
