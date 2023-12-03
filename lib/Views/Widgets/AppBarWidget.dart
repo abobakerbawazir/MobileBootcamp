@@ -1,19 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:car_booking/Views/Widgets/MyColors.dart';
 
-class AppBarWidget extends StatelessWidget implements PreferredSizeWidget{
+class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
   late String title;
-  AppBarWidget({super.key,required this.title});
+  void Function()? onPressed;
+
+  AppBarWidget({super.key, required this.title, this.onPressed});
 
   @override
   Widget build(BuildContext context) {
-    return AppBar(backgroundColor: const Color.fromARGB(255, 33, 91, 137),
+    return AppBar(
+      leading: IconButton(
+          onPressed: onPressed,
+          icon: Icon(
+            Icons.arrow_back,
+            color: Colors.white,
+          )),
+      backgroundColor: c2,
       title: Text(title),
     );
   }
-  
+
   @override
   // TODO: implement preferredSize
   Size get preferredSize => Size.fromHeight(kToolbarHeight);
-  
 }
-

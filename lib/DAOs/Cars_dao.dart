@@ -1,9 +1,19 @@
 import 'package:car_booking/Entitis/Cars.dart';
+import 'package:car_booking/Entitis/CarsWithImages.dart';
+import 'package:car_booking/Entitis/Images.dart';
 import 'package:floor/floor.dart';
+
 @dao
 abstract class CarDao {
+  @Query('select cars.* from cars')
+  Future<List<Car>> getAllImagesAndCars();
+
+  // @Query('SELECT * FROM cars')
+  // Future<List<Car>> getAllCarsANdImages();
   @Query('SELECT * FROM cars')
   Future<List<Car>> getAllCars();
+  @Query('SELECT * FROM cars WHERE prandId=:prandId')
+  Future<List<Car>> getAllCarsByPrandIdOnly(int prandId);
   @Query('SELECT * FROM cars WHERE id=:id')
   Future<Car?> getOneCar(int id);
   @insert

@@ -4,6 +4,10 @@ import 'package:floor/floor.dart';
 abstract class BookingDao {
   @Query('SELECT * FROM Booking')
   Future<List<Booking>> getAllBooking();
+  @Query('SELECT * FROM Booking WHERE userId=:userId')
+  Future<List<Booking>> getAllBookingOfUser(int userId);
+  @Query('SELECT * FROM Booking WHERE carId=:carId')
+  Future<List<Booking>> getAllBookingOfCar(int carId);
   @Query('SELECT * FROM Booking WHERE id=:id')
   Future<Booking?> getOneBooking(int id);
   @insert

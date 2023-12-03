@@ -6,6 +6,8 @@ abstract class UserDao {
   Future<List<User>> getAllusers();
   @Query('SELECT * FROM users WHERE id=:id')
   Future<User?>getOneUser(int id);
+  @Query('SELECT * FROM users WHERE username=:username and password=:password')
+  Future<User?>getOneUserByuserNameAndPassword(String username,String password);
   @insert
   Future<int> addUser(User u);
   @insert

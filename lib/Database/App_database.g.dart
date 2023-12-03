@@ -95,11 +95,11 @@ class _$AppDatabase extends AppDatabase {
       },
       onCreate: (database, version) async {
         await database.execute(
-            'CREATE TABLE IF NOT EXISTS `cars` (`id` INTEGER, `prandId` INTEGER, `full_name` TEXT, `model` TEXT, `active` INTEGER, `price` INTEGER, FOREIGN KEY (`prandId`) REFERENCES `Prand` (`id`) ON UPDATE NO ACTION ON DELETE NO ACTION, PRIMARY KEY (`id`))');
+            'CREATE TABLE IF NOT EXISTS `cars` (`id` INTEGER, `prandId` INTEGER, `name` TEXT, `model` TEXT, `active` INTEGER, `price` INTEGER, FOREIGN KEY (`prandId`) REFERENCES `Prand` (`id`) ON UPDATE NO ACTION ON DELETE NO ACTION, PRIMARY KEY (`id`))');
         await database.execute(
             'CREATE TABLE IF NOT EXISTS `Prand` (`id` INTEGER, `name` TEXT, PRIMARY KEY (`id`))');
         await database.execute(
-            'CREATE TABLE IF NOT EXISTS `images` (`id` INTEGER, `name` TEXT, `car_id` INTEGER, FOREIGN KEY (`car_id`) REFERENCES `cars` (`id`) ON UPDATE NO ACTION ON DELETE NO ACTION, PRIMARY KEY (`id`))');
+            'CREATE TABLE IF NOT EXISTS `images` (`id` INTEGER, `name` BLOB, `car_id` INTEGER, FOREIGN KEY (`car_id`) REFERENCES `cars` (`id`) ON UPDATE NO ACTION ON DELETE NO ACTION, PRIMARY KEY (`id`))');
         await database.execute(
             'CREATE TABLE IF NOT EXISTS `Booking` (`carId` INTEGER, `userId` INTEGER, `from` TEXT, `to` TEXT, `total` INTEGER, FOREIGN KEY (`carId`) REFERENCES `cars` (`id`) ON UPDATE NO ACTION ON DELETE NO ACTION, FOREIGN KEY (`userId`) REFERENCES `users` (`id`) ON UPDATE NO ACTION ON DELETE NO ACTION, PRIMARY KEY (`carId`, `userId`))');
         await database.execute(
@@ -246,7 +246,7 @@ class _$CarDao extends CarDao {
             (Car item) => <String, Object?>{
                   'id': item.id,
                   'prandId': item.prandId,
-                  'full_name': item.name,
+                  'name': item.name,
                   'model': item.model,
                   'active': item.active == null ? null : (item.active! ? 1 : 0),
                   'price': item.price
@@ -258,7 +258,7 @@ class _$CarDao extends CarDao {
             (Car item) => <String, Object?>{
                   'id': item.id,
                   'prandId': item.prandId,
-                  'full_name': item.name,
+                  'name': item.name,
                   'model': item.model,
                   'active': item.active == null ? null : (item.active! ? 1 : 0),
                   'price': item.price
@@ -270,7 +270,7 @@ class _$CarDao extends CarDao {
             (Car item) => <String, Object?>{
                   'id': item.id,
                   'prandId': item.prandId,
-                  'full_name': item.name,
+                  'name': item.name,
                   'model': item.model,
                   'active': item.active == null ? null : (item.active! ? 1 : 0),
                   'price': item.price
@@ -289,11 +289,11 @@ class _$CarDao extends CarDao {
   final DeletionAdapter<Car> _carDeletionAdapter;
 
   @override
-  Future<List<Car>> getAllCars() async {
-    return _queryAdapter.queryList('SELECT * FROM cars',
+  Future<List<Car>> getAllImagesAndCars() async {
+    return _queryAdapter.queryList('select cars.* from cars',
         mapper: (Map<String, Object?> row) => Car(
             id: row['id'] as int?,
-            name: row['full_name'] as String?,
+            name: row['name'] as String?,
             model: row['model'] as String?,
             active: row['active'] == null ? null : (row['active'] as int) != 0,
             price: row['price'] as int?,
@@ -301,11 +301,36 @@ class _$CarDao extends CarDao {
   }
 
   @override
+  Future<List<Car>> getAllCars() async {
+    return _queryAdapter.queryList('SELECT * FROM cars',
+        mapper: (Map<String, Object?> row) => Car(
+            id: row['id'] as int?,
+            name: row['name'] as String?,
+            model: row['model'] as String?,
+            active: row['active'] == null ? null : (row['active'] as int) != 0,
+            price: row['price'] as int?,
+            prandId: row['prandId'] as int?));
+  }
+
+  @override
+  Future<List<Car>> getAllCarsByPrandIdOnly(int prandId) async {
+    return _queryAdapter.queryList('SELECT * FROM cars WHERE prandId=?1',
+        mapper: (Map<String, Object?> row) => Car(
+            id: row['id'] as int?,
+            name: row['name'] as String?,
+            model: row['model'] as String?,
+            active: row['active'] == null ? null : (row['active'] as int) != 0,
+            price: row['price'] as int?,
+            prandId: row['prandId'] as int?),
+        arguments: [prandId]);
+  }
+
+  @override
   Future<Car?> getOneCar(int id) async {
     return _queryAdapter.query('SELECT * FROM cars WHERE id=?1',
         mapper: (Map<String, Object?> row) => Car(
             id: row['id'] as int?,
-            name: row['full_name'] as String?,
+            name: row['name'] as String?,
             model: row['model'] as String?,
             active: row['active'] == null ? null : (row['active'] as int) != 0,
             price: row['price'] as int?,
@@ -331,7 +356,7 @@ class _$CarDao extends CarDao {
     return _queryAdapter.queryList('SELECT * FROM cars WHERE name LIKE ?1',
         mapper: (Map<String, Object?> row) => Car(
             id: row['id'] as int?,
-            name: row['full_name'] as String?,
+            name: row['name'] as String?,
             model: row['model'] as String?,
             active: row['active'] == null ? null : (row['active'] as int) != 0,
             price: row['price'] as int?,
@@ -439,6 +464,22 @@ class _$UserDao extends UserDao {
             phone: row['phone_no'] as String?,
             roleId: row['roleId'] as int?),
         arguments: [id]);
+  }
+
+  @override
+  Future<User?> getOneUserByuserNameAndPassword(
+    String username,
+    String password,
+  ) async {
+    return _queryAdapter.query(
+        'SELECT * FROM users WHERE username=?1 and password=?2',
+        mapper: (Map<String, Object?> row) => User(
+            id: row['id'] as int?,
+            username: row['username'] as String?,
+            password: row['password'] as String?,
+            phone: row['phone_no'] as String?,
+            roleId: row['roleId'] as int?),
+        arguments: [username, password]);
   }
 
   @override
@@ -554,6 +595,30 @@ class _$BookingDao extends BookingDao {
             from: row['from'] as String?,
             to: row['to'] as String?,
             total: row['total'] as int?));
+  }
+
+  @override
+  Future<List<Booking>> getAllBookingOfUser(int userId) async {
+    return _queryAdapter.queryList('SELECT * FROM Booking WHERE userId=?1',
+        mapper: (Map<String, Object?> row) => Booking(
+            carId: row['carId'] as int?,
+            userId: row['userId'] as int?,
+            from: row['from'] as String?,
+            to: row['to'] as String?,
+            total: row['total'] as int?),
+        arguments: [userId]);
+  }
+
+  @override
+  Future<List<Booking>> getAllBookingOfCar(int carId) async {
+    return _queryAdapter.queryList('SELECT * FROM Booking WHERE carId=?1',
+        mapper: (Map<String, Object?> row) => Booking(
+            carId: row['carId'] as int?,
+            userId: row['userId'] as int?,
+            from: row['from'] as String?,
+            to: row['to'] as String?,
+            total: row['total'] as int?),
+        arguments: [carId]);
   }
 
   @override
@@ -729,28 +794,28 @@ class _$ImageDao extends ImageDao {
     this.database,
     this.changeListener,
   )   : _queryAdapter = QueryAdapter(database),
-        _imageInsertionAdapter = InsertionAdapter(
+        _imageCarInsertionAdapter = InsertionAdapter(
             database,
             'images',
-            (Image item) => <String, Object?>{
+            (ImageCar item) => <String, Object?>{
                   'id': item.id,
                   'name': item.name,
                   'car_id': item.carId
                 }),
-        _imageUpdateAdapter = UpdateAdapter(
+        _imageCarUpdateAdapter = UpdateAdapter(
             database,
             'images',
             ['id'],
-            (Image item) => <String, Object?>{
+            (ImageCar item) => <String, Object?>{
                   'id': item.id,
                   'name': item.name,
                   'car_id': item.carId
                 }),
-        _imageDeletionAdapter = DeletionAdapter(
+        _imageCarDeletionAdapter = DeletionAdapter(
             database,
             'images',
             ['id'],
-            (Image item) => <String, Object?>{
+            (ImageCar item) => <String, Object?>{
                   'id': item.id,
                   'name': item.name,
                   'car_id': item.carId
@@ -762,29 +827,50 @@ class _$ImageDao extends ImageDao {
 
   final QueryAdapter _queryAdapter;
 
-  final InsertionAdapter<Image> _imageInsertionAdapter;
+  final InsertionAdapter<ImageCar> _imageCarInsertionAdapter;
 
-  final UpdateAdapter<Image> _imageUpdateAdapter;
+  final UpdateAdapter<ImageCar> _imageCarUpdateAdapter;
 
-  final DeletionAdapter<Image> _imageDeletionAdapter;
+  final DeletionAdapter<ImageCar> _imageCarDeletionAdapter;
 
   @override
-  Future<List<Image>> getAllImages() async {
-    return _queryAdapter.queryList('SELECT * FROM images',
-        mapper: (Map<String, Object?> row) => Image(
+  Future<List<ImageCar>> getAllImagesAndCars() async {
+    return _queryAdapter.queryList(
+        'select * from images inner join cars where cars.id=images.carId group by cars.name',
+        mapper: (Map<String, Object?> row) => ImageCar(
             id: row['id'] as int?,
-            name: row['name'] as String?,
+            name: row['name'] as Uint8List?,
             carId: row['car_id'] as int?));
   }
 
   @override
-  Future<Image?> getOneImage(int id) async {
-    return _queryAdapter.query('SELECT * FROM images WHERE car_id=?1',
-        mapper: (Map<String, Object?> row) => Image(
+  Future<List<ImageCar>> getAllImages() async {
+    return _queryAdapter.queryList('SELECT * FROM images',
+        mapper: (Map<String, Object?> row) => ImageCar(
             id: row['id'] as int?,
-            name: row['name'] as String?,
+            name: row['name'] as Uint8List?,
+            carId: row['car_id'] as int?));
+  }
+
+  @override
+  Future<List<ImageCar>> getAllImagesOfCarId(int carId) async {
+    return _queryAdapter.queryList('SELECT * FROM images WHERE car_id=?1',
+        mapper: (Map<String, Object?> row) => ImageCar(
+            id: row['id'] as int?,
+            name: row['name'] as Uint8List?,
             carId: row['car_id'] as int?),
-        arguments: [id]);
+        arguments: [carId]);
+  }
+
+  @override
+  Future<ImageCar?> getOneImage(int car_id) async {
+    return _queryAdapter.query(
+        'SELECT * FROM images WHERE car_id=?1 ORDER BY car_id LIMIT 1',
+        mapper: (Map<String, Object?> row) => ImageCar(
+            id: row['id'] as int?,
+            name: row['name'] as Uint8List?,
+            carId: row['car_id'] as int?),
+        arguments: [car_id]);
   }
 
   @override
@@ -801,41 +887,41 @@ class _$ImageDao extends ImageDao {
   }
 
   @override
-  Future<List<Image>> searchByName(String word) async {
+  Future<List<ImageCar>> searchByName(String word) async {
     return _queryAdapter.queryList('SELECT * FROM images WHERE name LIKE ?1',
-        mapper: (Map<String, Object?> row) => Image(
+        mapper: (Map<String, Object?> row) => ImageCar(
             id: row['id'] as int?,
-            name: row['name'] as String?,
+            name: row['name'] as Uint8List?,
             carId: row['car_id'] as int?),
         arguments: [word]);
   }
 
   @override
-  Future<int> addImage(Image d) {
-    return _imageInsertionAdapter.insertAndReturnId(
+  Future<int> addImage(ImageCar d) {
+    return _imageCarInsertionAdapter.insertAndReturnId(
         d, OnConflictStrategy.abort);
   }
 
   @override
-  Future<List<int>> addListImage(List<Image> d) {
-    return _imageInsertionAdapter.insertListAndReturnIds(
+  Future<List<int>> addListImage(List<ImageCar> d) {
+    return _imageCarInsertionAdapter.insertListAndReturnIds(
         d, OnConflictStrategy.abort);
   }
 
   @override
-  Future<int> updatesImage(Image d) {
-    return _imageUpdateAdapter.updateAndReturnChangedRows(
+  Future<int> updatesImage(ImageCar d) {
+    return _imageCarUpdateAdapter.updateAndReturnChangedRows(
         d, OnConflictStrategy.abort);
   }
 
   @override
-  Future<int> updatesImageList(List<Image> d) {
-    return _imageUpdateAdapter.updateListAndReturnChangedRows(
+  Future<int> updatesImageList(List<ImageCar> d) {
+    return _imageCarUpdateAdapter.updateListAndReturnChangedRows(
         d, OnConflictStrategy.abort);
   }
 
   @override
-  Future<int> deleteImageOfObject(Image d) {
-    return _imageDeletionAdapter.deleteAndReturnChangedRows(d);
+  Future<int> deleteImageOfObject(ImageCar d) {
+    return _imageCarDeletionAdapter.deleteAndReturnChangedRows(d);
   }
 }

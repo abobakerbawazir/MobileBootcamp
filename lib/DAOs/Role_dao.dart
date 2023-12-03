@@ -1,5 +1,6 @@
 import 'package:car_booking/Entitis/Role.dart';
 import 'package:floor/floor.dart';
+
 @dao
 abstract class RoleDao {
   @Query('SELECT * FROM roles')

@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:typed_data';
 import 'package:car_booking/DAOs/Booking_dao.dart';
 import 'package:car_booking/DAOs/Cars_dao.dart';
 import 'package:car_booking/DAOs/Images_dao.dart';
@@ -16,7 +17,7 @@ import 'package:floor/floor.dart';
 
 part 'App_database.g.dart';
 
-@Database(version: 1, entities: [Car, Prand, Image, Booking, User, Role])
+@Database(version: 1, entities: [Car, Prand, ImageCar, Booking, User, Role])
 abstract class AppDatabase extends FloorDatabase {
   RoleDao get roleDoa;
   CarDao get carDao;

@@ -14,7 +14,7 @@ class BackgroundImage extends StatelessWidget {
       shaderCallback: (rect) => LinearGradient(
         begin: Alignment.bottomCenter,
         end: Alignment.center,
-        colors: [Colors.black, Colors.transparent],
+        colors: [const Color.fromARGB(255, 249, 151, 151), Colors.transparent],
       ).createShader(rect),
       blendMode: BlendMode.darken,
       child: Container(
