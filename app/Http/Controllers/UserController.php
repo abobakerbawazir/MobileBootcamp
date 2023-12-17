@@ -1,9 +1,11 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Models\User;
 use App\Trails\ApiResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
@@ -87,7 +89,28 @@ class UserController extends Controller
         return Validator::make($request->all(), [
             'name' => 'required|unique:users',
             'email' => 'required|unique:users',
+            'momaiaz_number' => 'required|unique:users',
+
+
 
         ]);
+    }
+
+    public function login(Request $request)
+    {
+        $logunUser = $request->validate(['email' => 'required|email', 'password' => 'required']);
+        if (Auth::attempt($logunUser)) {
+            $user = User::where('email', $logunUser['email'])->first();
+            $token = $user->createToken('api token')->plainTextToken;
+
+            return response()->json(["user"=>$user, 'token' => $token]);
+        }
+        return response()->json(['message' => 'invalid User Login', 401]);
+    }
+
+    public function logout(Request $request)
+    {
+        $request->user()->tokens()->delete();
+        return response()->json(['messgae' => 'Logged out successfully']);
     }
 }

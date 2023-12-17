@@ -15,7 +15,9 @@ class CurrencyController extends Controller
      */
     public function index()
     {
-        $result = Currency::all();
+        $result = Currency::select('name')->get();
+        // $x = $result->name;
+
         return $this->success_ressponse(result: $result);
         //
     }

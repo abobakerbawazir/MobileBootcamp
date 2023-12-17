@@ -24,16 +24,26 @@ use Illuminate\Support\Facades\Route;
 // Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 //     return $request->user();
 // });
-Route::get('userss', [UserController::class, "index"]);
-
+Route::post('login',[UserController::class,'login']);
+Route::post('register',[UserController::class,'store']);
 Route::apiResources([
     //'indexAuthor'=>[AuthorController::class,'indexAuthor'],
     'users' => UserController::class,
-    'accounts' => AccountController::class,
-    'accounttypes' => AccounttypeController::class,
-    'branches' => BranchController::class,
-    'currencies' => CurrencyController::class,
-    'transactiont' => TransactiontController::class,
-    'typetransactiont' => TypetransactiontController::class,
-    
+   
 ]);
+
+Route::middleware('auth:sanctum')->group(function(){
+    Route::post('logout',[UserController::class,'logout']);
+    Route::apiResources([
+        //'indexAuthor'=>[AuthorController::class,'indexAuthor'],
+        'accounts' => AccountController::class,
+        'accounttypes' => AccounttypeController::class,
+        'branches' => BranchController::class,
+        'currencies' => CurrencyController::class,
+        'transactiont' => TransactiontController::class,
+        'typetransactiont' => TypetransactiontController::class,
+        
+    ]);
+
+     
+});

@@ -16,7 +16,8 @@ class AccountController extends Controller
      */
     public function index()
     {
-        $result = Account::all();
+
+        $result = Account::with("branch")->get();
         return $this->success_ressponse(result: $result);
         //
     }
@@ -86,8 +87,6 @@ class AccountController extends Controller
     }
     public function rules(Request $request)
     {
-        return Validator::make($request->all(), [
-            
-        ]);
+        return Validator::make($request->all(), []);
     }
 }
