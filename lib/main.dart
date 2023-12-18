@@ -1,6 +1,8 @@
 import 'package:firebase_app/Exercise_day_79_firebase_file_store/Models/Note.dart';
 import 'package:firebase_app/Exercise_day_79_firebase_file_store/NoteVM/NoteVM.dart';
 import 'package:firebase_app/Exercise_day_79_firebase_file_store/Screens/HomePage79.dart';
+import 'package:firebase_app/Exercise_day_80_firebase_file_storeDB/ViewModels/Note80VM.dart';
+import 'package:firebase_app/Exercise_day_80_firebase_file_storeDB/Views/Screens/HomePage80Notes.dart';
 import 'package:firebase_app/HomePage.dart';
 import 'package:firebase_app/firebase_options.dart';
 import 'package:firebase_app/firestore_day80Task/Views/Home80Page.dart';
@@ -27,9 +29,10 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(
           create: (context) => NoteVM(),
         ),
+        ChangeNotifierProvider(create: (context) => Note80VM(),)
       ],
       child: ChangeNotifierProvider(
-        create: (context) => NoteVM(),
+        create: (context) => Note80VM(),
         child: Consumer(
           builder: (context, value, child) {
             return MaterialApp(
@@ -53,7 +56,7 @@ class MyApp extends StatelessWidget {
                 colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
                 useMaterial3: true,
               ),
-              home: ListStudentPage(),
+              home: HomePage80Notes(),
             );
           },
         ),
